@@ -6,20 +6,24 @@ import java.util.ArrayList;
  * Burger
  */
 public class Burger {
-
+    private Integer id;
     private String name;
     private Double price;
     private String roll;
     private String meat;
-    private Integer maxTopping;
     private ArrayList<Topping> toppings = new ArrayList<Topping>();
 
-    public Burger(String name, Double price, String roll, String meat, Integer maxTopping) {
+    public Burger(Integer id, String name, Double price, String roll, String meat) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.roll = roll;
         this.meat = meat;
-        this.maxTopping = maxTopping;
+        Manager.prepareToppings(this);
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     /**
@@ -34,13 +38,6 @@ public class Burger {
      */
     public Double getPrice() {
         return price;
-    }
-
-    /**
-     * @return the maxTopping allowed in burger
-     */
-    public Integer getMaxTopping() {
-        return maxTopping;
     }
 
     /**
@@ -60,6 +57,6 @@ public class Burger {
     @Override
     public String toString() {
         return this.name + " with " + this.roll + " with " + this.meat + " :- \n\tCost: $"
-                + String.format("%.2f", this.price) + "\n\tMaximum toppings: " + this.maxTopping + "\n";
+                + String.format("%.2f", this.price) + "\n\tMaximum toppings: " + this.getToppings().size() + "\n";
     }
 }

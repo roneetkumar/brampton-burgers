@@ -11,7 +11,7 @@ public class Restaurant {
     private static ArrayList<Burger> allBurgers = new ArrayList<Burger>();
 
     Restaurant() {
-        prepareBurgersAndToppings();
+        allBurgers.addAll(Manager.prepareBurgers());
     }
 
     public static void displayBurger() {
@@ -65,14 +65,14 @@ public class Restaurant {
     }
 
     public static void chooseToppings(Burger selectedBurger, ArrayList<Topping> selectedToppings) {
-        System.out.print("\nChoose any " + selectedBurger.getMaxTopping() + " toppings : ");
+        System.out.print("\nChoose any " + selectedBurger.getToppings().size() + " toppings : ");
 
         try {
             input = new Scanner(System.in);
             int choice = input.nextInt();
             if (choice == 0) {
                 return;
-            } else if (choice > selectedBurger.getMaxTopping()) {
+            } else if (choice > selectedBurger.getToppings().size()) {
                 Error("\nPlease select the right topping");
                 chooseToppings(selectedBurger, selectedToppings);
             } else {
@@ -83,46 +83,12 @@ public class Restaurant {
             chooseToppings(selectedBurger, selectedToppings);
         }
 
-        if (selectedBurger.getMaxTopping() != selectedToppings.size()) {
+        if (selectedBurger.getToppings().size() != selectedToppings.size()) {
             chooseToppings(selectedBurger, selectedToppings);
         }
     }
 
     private static void Error(String error) {
         System.out.println(error);
-    }
-
-    private void prepareBurgersAndToppings() {
-        Burger basicBurger = new BasicBurger();
-        Burger healthyBurger = new HealthyBurger();
-        Burger deluxeBurger = new DeluxeBurger();
-
-        Topping tomato = new Topping("Tomato", 0.27);
-        Topping lettuce = new Topping("Lettuce", 0.72);
-        Topping cheese = new Topping("Cheese", 1.13);
-        Topping carrot = new Topping("Carrot", 2.75);
-        Topping egg = new Topping("Egg", 5.43);
-        Topping lentils = new Topping("Lentils", 3.14);
-        Topping chips = new Topping("Chips", 2.75);
-        Topping drink = new Topping("Drink", 1.81);
-
-        basicBurger.setToppings(tomato);
-        basicBurger.setToppings(lettuce);
-        basicBurger.setToppings(cheese);
-        basicBurger.setToppings(carrot);
-
-        healthyBurger.setToppings(basicBurger.getToppings().get(0));
-        healthyBurger.setToppings(basicBurger.getToppings().get(1));
-        healthyBurger.setToppings(basicBurger.getToppings().get(2));
-        healthyBurger.setToppings(basicBurger.getToppings().get(3));
-        healthyBurger.setToppings(egg);
-        healthyBurger.setToppings(lentils);
-
-        deluxeBurger.setToppings(chips);
-        deluxeBurger.setToppings(drink);
-
-        allBurgers.add(basicBurger);
-        allBurgers.add(healthyBurger);
-        allBurgers.add(deluxeBurger);
     }
 }
