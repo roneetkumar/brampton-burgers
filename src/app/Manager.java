@@ -45,6 +45,21 @@ public class Manager {
         return null;
     }
 
+    public static Integer getBillId() {
+        String sql = "SELECT id FROM bills ORDER BY id DESC LIMIT 1";
+
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet data = stmt.executeQuery(sql);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
     public static void prepareToppings(Burger burger) {
         String sql = "SELECT * FROM toppings WHERE id IN (SELECT toppingId FROM burgerToppings WHERE burgerId = ?)";
 

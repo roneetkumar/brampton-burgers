@@ -6,22 +6,33 @@ import java.util.ArrayList;
  * Bill
  */
 public class Bill {
-    public void generateReciept(Burger selectedBurger, ArrayList<Topping> selectedToppings) {
 
-        double total = calculateTotal(selectedBurger, selectedToppings);
+    private String billId;
+    private Burger burger;
+    private ArrayList<Topping> topings;
+
+    public Bill(Burger burger, ArrayList<Topping> toppings) {
+        this.billId = "0";
+        this.burger = burger;
+        this.topings = toppings;
+    }
+
+    public void generateReciept() {
+
+        double total = calculateTotal(this.burger, this.topings);
         double tax = total * 0.15;
         double netTotal = total + tax;
 
         System.out.println("\n\tReciept");
         System.out.println("\t```````");
-        System.out.println("1. " + selectedBurger.getName() + " - " + selectedBurger.getPrice());
+        System.out.println("1. " + this.burger.getName() + " - " + this.burger.getPrice());
 
-        if (selectedToppings.size() > 0) {
+        if (this.topings.size() > 0) {
             int i = 1;
             System.out.println("\nExtras : ");
             System.out.println("````````");
 
-            for (Topping topping : selectedToppings) {
+            for (Topping topping : this.topings) {
                 System.out.print(i + ". " + topping);
                 i++;
             }
